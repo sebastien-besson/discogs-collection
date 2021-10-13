@@ -1,11 +1,13 @@
 <template>
-  <loading v-model:active="this.$store.isLoading"
+  <loading v-model:active="isLoading"
            :can-cancel="true"
            :on-cancel="onCancel"
            :is-full-page="fullPage"></loading>
-  <h1>{{ release.title }}</h1>
-  <h2> {{ release.artists_sort }} </h2>
-  <img v-bind:src=release.images[0].resource_url class="a-img">
+  <div class="item-content" v-if="release.id">
+    <h1>{{ release.title }}</h1>
+    <h2> {{ release.artists_sort }} </h2>
+    <img v-bind:src=release.images[0].resource_url class="a-img">
+  </div>
 
 </template>
 
@@ -30,7 +32,7 @@ export default {
   methods: {
   },
   created() {
-    this.isLoading = this.$store.isLoading;
+    this.isLoading = this.$store.getters.getIsLoading;
     this.$store.dispatch('setCurrentRelease', this.id);
   },
   computed: {

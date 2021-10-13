@@ -20,29 +20,31 @@ export default createStore({
   },
   mutations: {
     reloadUserAndApi(state, name) {
+      state.isLoading = true;
       state.user = name;
       state.endpoint = 'users/' + name + '/collection/folders/0/releases?key=PewIEXaSauItJzUKfVNC&secret=AwTiAefiXHjBowDsmzdabltihJjeldrq';
       HTTP.get(state.endpoint)
         .then(response => {
           state.releases = response.data.releases
+          state.isLoading = false;
         })
         .catch(e => {
           state.errors.push(e)
         })
     },
     setCurrentRelease(state, release) {
-      // state.isLoading = false;
       state.currentRelease = release;
     }
 
   },
   actions: {
     setCurrentRelease ({commit, state}, itemId) {
-      state.currentRelease = {};
       state.isLoading = true;
+      state.currentRelease = {};
       HTTP.get('/releases/' + itemId + '?key=PewIEXaSauItJzUKfVNC&secret=AwTiAefiXHjBowDsmzdabltihJjeldrq')
         .then(response => {
           commit('setCurrentRelease', response.data);
+          state.isLoading = false;
         })
         .catch(e => {
           state.errors.push(e)
