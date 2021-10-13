@@ -1,7 +1,6 @@
 <template>
   <loading v-model:active="isLoading"
            :can-cancel="true"
-           :on-cancel="onCancel"
            :is-full-page="fullPage"></loading>
   <div class="item-content" v-if="release.id">
     <h1>{{ release.title }}</h1>
@@ -32,7 +31,6 @@ export default {
   methods: {
   },
   created() {
-    this.isLoading = this.$store.getters.getIsLoading;
     this.$store.dispatch('setCurrentRelease', this.id);
   },
   computed: {
