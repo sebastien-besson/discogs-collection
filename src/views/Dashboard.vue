@@ -5,7 +5,6 @@
     <hr>
     <loading v-model:active="isLoading"
              :can-cancel="true"
-             :on-cancel="onCancel"
              :is-full-page="fullPage"></loading>
     <div class="row">
       <div class="col-12">
@@ -27,6 +26,11 @@ export default {
     DiscogsName,
     Releases,
     Loading
+  },
+  data() {
+    return {
+      fullPage: true
+    }
   },
   methods: {
   },

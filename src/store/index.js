@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
-import {HTTP} from "@/tools/http-common";
+import {HTTP} from "@/common/http-common";
+import HttpCommon from "@/common/http-common";
 
 export default createStore({
   state: {
@@ -7,8 +8,7 @@ export default createStore({
     releases: [],
     errors: [],
     currentRelease: {},
-    isLoading: true,
-    endpoint: 'users/winter.bodom/collection/folders/0/releases?key=PewIEXaSauItJzUKfVNC&secret=AwTiAefiXHjBowDsmzdabltihJjeldrq'
+    isLoading: true
   },
   getters: {
     getCurrentRelease(state) {
@@ -22,8 +22,8 @@ export default createStore({
     reloadUserAndApi(state, name) {
       state.isLoading = true;
       state.user = name;
-      state.endpoint = 'users/' + name + '/collection/folders/0/releases?key=PewIEXaSauItJzUKfVNC&secret=AwTiAefiXHjBowDsmzdabltihJjeldrq';
-      HTTP.get(state.endpoint)
+      let endpoint = HttpCommon.getCollectionApi(state.user);
+      HTTP.get(endpoint)
         .then(response => {
           state.releases = response.data.releases
           state.isLoading = false;
@@ -41,7 +41,7 @@ export default createStore({
     setCurrentRelease ({commit, state}, itemId) {
       state.isLoading = true;
       state.currentRelease = {};
-      HTTP.get('/releases/' + itemId + '?key=PewIEXaSauItJzUKfVNC&secret=AwTiAefiXHjBowDsmzdabltihJjeldrq')
+      HTTP.get(HttpCommon.getReleaseApi(itemId))
         .then(response => {
           commit('setCurrentRelease', response.data);
           state.isLoading = false;
