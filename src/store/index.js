@@ -16,6 +16,9 @@ export default createStore({
     },
     getIsLoading(state) {
       return state.isLoading;
+    },
+    getUser(state) {
+      return state.user;
     }
   },
   mutations: {

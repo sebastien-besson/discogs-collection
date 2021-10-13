@@ -12,11 +12,11 @@ export default {
   name: 'DiscogsName',
   data() {
     return {
-      user: "winter.bodom"
+      user: this.$store.getters.getUser
     }
   },
   created() {
-    this.$store.commit('reloadUserAndApi', this.user);
+    this.$store.commit('reloadUserAndApi', this.$store.getters.getUser);
   },
   computed: {
   },
