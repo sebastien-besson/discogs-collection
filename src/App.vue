@@ -14,6 +14,7 @@
   text-align: center;
   color: #bcbcbd;
   background-color: black;
+  overflow: hidden;
 }
 
 #nav {

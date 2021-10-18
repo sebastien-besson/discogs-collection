@@ -3,7 +3,7 @@
     <div class="col-lg-3 col-md-4 col-xs-6 content-img" v-for="(release, index) in getReleases" :key="index" >
       <router-link :to="{name: 'Item', params : { id : release.id}}" class="movie a-img-txt" >
         <img v-bind:src=release.basic_information.cover_image class="a-img">
-        <div class="preview-content row">
+        <div class="preview-content">
           <p class="text-center display-6">{{release.basic_information.artists[0].name}}</p>
           <p class="fw-bold">{{release.basic_information.title}} ({{release.basic_information.year}})</p>
           <p class="">{{release.basic_information.formats[0].name}}</p>
@@ -59,7 +59,9 @@ export default {
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction: column;
     color:#fff;
+    background: rgba(0,0,0,0.6);
     opacity:0;
     transition:opacity .8s;
   }
